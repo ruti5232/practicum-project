@@ -1,0 +1,23 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: lightgrey;
+    margin-left: 0vw;
+    width: 100vw;
+}
+
+nav {
+    margin-top:-1vh;
+    width: 60vw;
+
+    button {
+        margin: 0.5%;
+
+        a {
+            color: rgb(166, 138, 160);
+            font-weight: bolder;
+            text-decoration: none;
+
+        }
+    }
+}

@@ -1,0 +1,57 @@
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field+.mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+#my-form {
+  width: 50vw;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  margin-left: 20vw;
+  margin-right: 20vw;
+  background-color: white;
+
+  .container {
+    display: block;
+    margin-right: 15vw;
+    margin: 1vw;
+  }
+  .my-buttons {
+    width: 96%;
+    height: 7vh;
+    margin: 2%;
+    background-color: rgb(166, 138, 160);
+    color: rgb(45, 45, 45);
+    border-radius: 3px;
+    border: none;
+    font-size: larger;
+  }
+}
+
+h3 {
+  color: grey;
+  text-align: center;
+}
+
+.example-form-field {
+  margin-right: 20px;
+}
+.flex-container{
+  display: flex;
+  flex-wrap: wrap;
+  .date-input{
+    margin-bottom:-4%;
+  }
+  .picker{
+    margin-bottom:-2%;
+    margin-top:-3%;
+  }
+}

@@ -146,6 +146,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
         confirmButtonText: 'יציאה'
       });
       form.resetForm();
+      this.user.Children=[];
       console.log("succ", succ);
       this.isOpenChild = false;
       this.myForm = form;

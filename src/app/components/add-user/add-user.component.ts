@@ -8,6 +8,18 @@ import { ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { from } from 'rxjs';
+import { NgForm } from '@angular/forms';
+// import swal from 'sweetalert2';
+// import swal from 'sweetalert';
+// import { SwapCalls } from '@mui/icons-material';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2'
+
+// import * as _swal from 'sweetalert';
+// import { SweetAlert } from 'sweetalert/typings/core';
+// const swal: SweetAlert = _swal as any;
+
 interface Gender {
   value: number;
   viewValue: string;
@@ -35,10 +47,10 @@ export class AddUserComponent implements OnInit, OnDestroy {
     { value: 3, viewValue: 'מאוחדת' },
     { value: 4, viewValue: 'לאומית' },
   ];
-  user: User = new User(0, "", "",null, "", 0, 0, []);
+  user: User = new User(0, "", "", null, "", 0, 0, []);
   child: Child = new Child(0, "", "", null)
   isOpenChild: boolean = false;
-  constructor(public userService: UserService, public childService: ChildService, public localStorageService: LocalStorageService) {  }
+  constructor(public userService: UserService, public childService: ChildService, public localStorageService: LocalStorageService) { }
   data: any[] = [];
   ngOnInit(): void {
     if (localStorage.getItem("isAddChild")) {
@@ -107,10 +119,10 @@ export class AddUserComponent implements OnInit, OnDestroy {
       return false;
     return true;
   }
-  resetChild() {
-    this.child.IdentityNumber = this.child.FirstName = "";
-    this.child.DateOfBirth = null;
-  }
+  // resetChild() {
+  //   this.child.IdentityNumber = this.child.FirstName = "";
+  //   this.child.DateOfBirth = null;
+  // }
   addChild() {
     if (this.isOpenChild == false) {
       this.isOpenChild = true;
@@ -121,34 +133,49 @@ export class AddUserComponent implements OnInit, OnDestroy {
     console.log("isOpenaddchild", this.isOpenChild);
   }
   flag: boolean = false;
-  save(form) {
+  myForm;
+  save(form: NgForm) {
     this.flag = false;
-    this.addChildToParent();
-      this.userService.addUser(this.user).subscribe(succ => {
-        alert("משתמש נוסף בהצלחה")
-        console.log("succ", succ);
-        this.isOpenChild = false;
-      }, (err) => {
-        alert("התרחשה שגיאה בהוספת אבא!!")
-      })
+    //this.addChildToParent(childForm);
+    this.userService.addUser(this.user).subscribe(succ => {
+      // swal("משתמש נוסף בהצלחה");
+
+      Swal.fire({
+        title: '!!!משתמש נוסף בהצלחה',
+        text: '😊😊😊',
+        confirmButtonText: 'יציאה'
+      });
+      form.resetForm();
+      console.log("succ", succ);
+      this.isOpenChild = false;
+      this.myForm = form;
+    }, (err) => {
+      Swal.fire({
+        title: '!!!התרחשה שגיאה בהוספת אבא',
+        text: '😊😊😊',
+        confirmButtonText: 'יציאה'
+      });
+    })
   }
-  resetForm() {
-    this.user.Children = [];
-    this.user.GenderId = this.user.HMOId = this.user.DateOfBirth = null;
-    this.user.FirstName = this.user.IdentityNumber = this.user.LastName = "";
-  }
-  addChildToParent() {
+  // resetForm() {
+  //   this.user.Children = [];
+  //   this.user.GenderId = this.user.HMOId = this.user.DateOfBirth = null;
+  //   this.user.FirstName = this.user.IdentityNumber = this.user.LastName = "";
+  // }
+  addChildToParent(form: NgForm) {
     let currentChild = new Child(0, this.child.IdentityNumber, this.child.FirstName, this.child.DateOfBirth)
     this.user.Children.push(currentChild)
     console.log("arrChildren", this.user.Children)
     console.log("child", this.child)
-    this.resetChild();
+    form.resetForm()
+    //this.resetChild();
   }
   login() {
     let currentUser = new User(0, this.user.IdentityNumber, this.user.FirstName, this.user.DateOfBirth, this.user.LastName, this.user.GenderId, this.user.HMOId, this.user.Children)
     this.localStorageService.currentUser.next(currentUser);
     this.localStorageService.setInStorage(currentUser, "currentUser");
-    this.resetForm();
+    //this.resetForm();
+    //this.myForm.reset();
   }
 
 }

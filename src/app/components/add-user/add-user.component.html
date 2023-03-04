@@ -65,6 +65,7 @@
 
 
   <div *ngIf="isOpenChild">
+    <form (ngSubmit)="addChildToParent(childForm)" #childForm="ngForm">
     <h3>הוספת פרטי ילד</h3>
     <mat-form-field appearance="fill" class="container">
       <mat-label class="input-name">תעודת זהות</mat-label>
@@ -97,7 +98,10 @@
     </mat-form-field>
     <div class="error" *ngIf="myDateChild.touched&&myDateChild.errors&&myDateChild.errors?.required">תאריך לידה הוא שדה חובה</div>
     <div class="error" *ngIf="!validDate()"> תאריך לידה צריך להיות קטן מהיום</div>
-    <input type="button" value="שליחת ילד" (click)="addChildToParent()" class="my-buttons" />
+    <!-- <input type="button" value="שליחת ילד" (click)="addChildToParent()" class="my-buttons" /> -->
+    <input type="submit" value="שליחת ילד" [disabled]="!childForm.valid" class="my-buttons" />
+
+  </form>
   </div>
   <input type="submit" [disabled]="!myForm.valid" class="container" class="my-buttons" />
 </form>
